@@ -8,14 +8,20 @@ import requests
 import pandas as pd
 import bs4
 from openpyxl import *
+import mysql.connector
 
 
 
 HEADERS = ({'User-Agent':
             'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36',
             'Accept-Language': 'en-US, en;q=0.5'})
-
-
+db = mysql.connector.connect(
+    host="us-cdbr-east-02.cleardb.com",
+    user="b27e5970f2d789",
+    passwd="0c7dd0cf",
+    database="heroku_cbaa81f3b8e025a"
+    )
+cursor  = db.cursor()
 def linkCheck():
     url = entry.get()
     itemID = url[-10:]
@@ -38,30 +44,30 @@ def linkCheck():
         return False
 
 def save():
-    cond, price, name, itemID, link = linkCheck()
-    print(cond, price, name, itemID, link )
-    if cond:
-        workbook  = load_workbook(filename="Data.xlsx")
-        sheet = workbook.active
-        for cell in sheet["C"]:
-            if cell.value == itemID:
+    email = entryTwo.get()
+    passwd = entry.get()
+    if True:
+        cursor.execute("SELECT userEmail FROM userdb")
+        for i in cursor:
+            print(i[0])
+            print(email)
+            if i[0] == email:
+                print("User Already Has an account")
                 return
-        row = sheet.max_row+1
-        sheet["C"+str(row)] = itemID
-        sheet["D"+str(row)] = name
-        sheet["E"+str(row)] = price
-        sheet["F"+str(row)] = link
-        workbook.save(filename="Data.xlsx")
+        cursor.execute("INSERT INTO userdb (iduserDB, userEmail, userPass) VALUES (%s,%s,%s)",(6, email, passwd))
+        db.commit()
+            
     else:
         print("That Link is not Valid!, Try Again.")
     
 
 root = Tk()
 entry = Entry(root)
+entryTwo = Entry(root)
+entryTwo.pack()
 entry.pack()
 
 myButton = Button(root, text="Submit", command=save)
-
 myButton.pack()
 
 root.mainloop()
