@@ -1,26 +1,31 @@
 '''
 Creating an app for tracking prices of items in various websites.
 Author: Batuhan Aktan
-Date: DEC 2020
+Date: JAN 2021
 '''
-from tkinter import *
+import kivy 
 import requests
 import pandas as pd
 import bs4
-from openpyxl import *
 import mysql.connector
-
+from kivy.app import App
+from openpyxl import *
+from kivy.uix.label import Label
 
 
 HEADERS = ({'User-Agent':
             'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36',
             'Accept-Language': 'en-US, en;q=0.5'})
+
+
 db = mysql.connector.connect(
     host="us-cdbr-east-02.cleardb.com",
     user="b27e5970f2d789",
     passwd="0c7dd0cf",
     database="heroku_cbaa81f3b8e025a"
     )
+
+
 cursor  = db.cursor()
 def linkCheck():
     url = entry.get()
@@ -43,14 +48,13 @@ def linkCheck():
     except:
         return False
 
+
 def save():
     email = entryTwo.get()
     passwd = entry.get()
     if True:
         cursor.execute("SELECT userEmail FROM userdb")
         for i in cursor:
-            print(i[0])
-            print(email)
             if i[0] == email:
                 print("User Already Has an account")
                 return
@@ -61,6 +65,10 @@ def save():
         print("That Link is not Valid!, Try Again.")
     
 
+class MyApp(App):
+    def build(self):
+        return Label(text="Login")
+'''
 root = Tk()
 entry = Entry(root)
 entryTwo = Entry(root)
@@ -71,4 +79,4 @@ myButton = Button(root, text="Submit", command=save)
 myButton.pack()
 
 root.mainloop()
-
+'''

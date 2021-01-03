@@ -9,7 +9,5 @@ db = mysql.connector.connect(
 cursor = db.cursor()
 cursor.execute("SELECT userEmail FROM userdb")
 
-if "batuhanaktan@gmail.com" in cursor:
-    print("is in")
 
 
