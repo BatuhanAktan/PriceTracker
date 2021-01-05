@@ -1,0 +1,110 @@
+ScreenManager:
+	LogInPage:
+	MainPage:
+	SignUp:
+<LogInPage>:
+	name: 'LogIn'
+	MDScreen:
+		md_bg_color: 175/255, 137/255, 106/255, 1
+		MDCard:
+			size_hint: .9, None
+			size: 320, 400
+			pos_hint: {"center_x":.5, "center_y":.5}
+			md_bg_color: 1,0.82745098039,0.73725490196,1
+			padding: 30 
+			spacing: 35
+			orientation: "vertical"
+			MDLabel:
+				text: "Login"
+				font_size: 40
+				halign: "center"
+				size_hint_y : None
+				height: self.texture_size[1]
+			MDTextField:
+				id: uid
+				hint_text: "Username/Email"
+				icon_right: "account"
+				size_hint_x: None
+				width: 220
+				font_size: 20
+				pos_hint: {"center_x":.5}
+			MDTextField:
+				id: passw
+				hint_text: "Password"
+				icon_right: "eye-off"
+				size_hint_x: None
+				width: 220
+				font_size: 20
+				pos_hint: {"center_x":.5}
+				password: True
+
+			MDFlatButton:
+				text: "Log In"
+				pos_hint: {"center_x":.5}
+				on_press: root.manager.current = 'main' if app.check(uid.text, passw.text) else 'LogIn'
+			MDTextButton:
+				text: "Sign Up"
+				pos_hint: {"center_x":.5}
+				on_press: root.manager.current = 'signup' 
+<SignUp>:
+	name: "signup"
+	MDScreen:
+		md_bg_color: 175/255, 137/255, 106/255, 1
+		MDCard:
+			size_hint: .9, None
+			size: 320, 400
+			pos_hint: {"center_x":.5, "center_y":.5}
+			md_bg_color: 1,0.82745098039,0.73725490196,1
+			padding: 30 
+			spacing: 5
+			orientation: "vertical"
+			MDLabel:
+				text: "Sign Up"
+				font_size: 30
+				halign: "center"
+				size_hint_y : None
+				height: self.texture_size[1]
+			MDTextField:
+				id: uid
+				hint_text: "Username"
+				icon_right: "account"
+				size_hint_x: None
+				width: 220
+				font_size: 15
+				pos_hint: {"center_x":.5}
+			MDTextField:
+				id: email
+				hint_text: "Email"
+				icon_right: "letter"
+				size_hint_x: None
+				width: 220
+				font_size: 15
+				pos_hint: {"center_x":.5}
+			MDTextField:
+				id: passw
+				hint_text: "Password"
+				icon_right: "eye-off"
+				size_hint_x: None
+				width: 220
+				font_size: 15
+				pos_hint: {"center_x":.5}
+			MDTextField:
+				id: passw2
+				hint_text: "Password Again"
+				icon_right: "eye-off"
+				size_hint_x: None
+				width: 220
+				font_size: 15
+				pos_hint: {"center_x":.5}
+			MDFlatButton:
+				text: "Sign Up"
+				pos_hint: {"center_x":.5}
+				on_press: root.manager.current = 'LogIn' if app.add(uid.text, email.text, passw.text, passw2.text) else 'signup'
+			MDTextButton:
+				text: "Log In"
+				pos_hint: {"center_x":.5}
+				on_press: root.manager.current = 'LogIn' 
+<MainPage>:
+	name: 'main'
+	MDLabel:
+		text: "guguGaga"

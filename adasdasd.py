@@ -7,7 +7,7 @@ db = mysql.connector.connect(
     database="heroku_cbaa81f3b8e025a"
     )
 cursor = db.cursor()
-cursor.execute("SELECT userEmail FROM userdb")
-
-
-
+print("INSERT INTO userdb (iduserDB ,userid, userEmail, userPass) VALUES ({},{},{},{});".format(2398, 'asde', 'ade', 'adeas'))
+cursor.execute("INSERT INTO userdb (iduserDB, userid, userEmail, userPass) VALUES ({},'{}','{}','{}');".format(2398, 'asde', 'ade', 'adeas'))
+print('true')
+db.commit()
