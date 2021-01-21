@@ -57,6 +57,11 @@ def linkCheck():
 
 
 def emailCheck(email):
+	'''
+	This function if the user entered a valid email
+	Parameters: email - string of entered email.
+	return: Boolean according to email validity
+	'''
 
     regex ='^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
     regex2 ='^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w+$'
@@ -65,7 +70,7 @@ def emailCheck(email):
 
         cursor.execute('SELECT userEmail from userdb')
 
-        userEmails = [x[0] for x in cursor]
+        userEmails = [x[0] for x in cursor] # Checking if the user email is already in the db
 
         for element in userEmails:
             if element == email:
@@ -73,6 +78,7 @@ def emailCheck(email):
 
         return True
 
+    return False
 
 class MainPage(Screen):
     pass
@@ -179,44 +185,3 @@ class PriceTracker(MDApp):
 
 PriceTracker().run()
 
-'''
-#AppDesign
-class MainScreen(Screen):
-    pass
-
-class LogScreen(Screen):
-    pass
-
-class WindowManager(ScreenManager):
-    pass
-
-
-kv = Builder.load_file("screens.kv")
-
-
-class MyApp(App):
-    def build(self):
-        return kv
-    def popUp(self):
-        toast("Wrong Password, Try again!")
-    def passwCheck(self,uid,passw):
-        email = cursor.execute("SELECT userEmail FROM userdb WHERE userEmail = (%s)", uid)
-        
-
-#Running
-if __name__ == "__main__":
-    MyApp().run()
-
-    
-
-root = Tk()
-entry = Entry(root)
-entryTwo = Entry(root)
-entryTwo.pack()secondScreen
-entry.pack()
-
-myButton = Button(root, text="Submit", command=save)
-myButton.pack()
-
-root.mainloop()
-'''
